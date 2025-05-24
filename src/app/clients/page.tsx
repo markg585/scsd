@@ -12,6 +12,7 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  DocumentData,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
@@ -69,10 +70,13 @@ export default function ClientsPage() {
   const fetchClients = async () => {
     const q = query(collection(db, 'Clients'));
     const snapshot = await getDocs(q);
-    const clientList = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Client[];
+    const clientList: Client[] = snapshot.docs.map((doc) => {
+      const data = doc.data() as Omit<Client, 'id'>;
+      return {
+        id: doc.id,
+        ...data,
+      };
+    });
     setClients(clientList);
     setFilteredClients(clientList);
   };
@@ -247,4 +251,4 @@ export default function ClientsPage() {
       </div>
     </Layout>
   );
-} 
+}
