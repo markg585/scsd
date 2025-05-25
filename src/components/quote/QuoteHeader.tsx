@@ -1,5 +1,3 @@
-// Improved quote header layout for clean visual structure
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,13 +9,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { format } from 'date-fns';
 import NewClientForm from './NewClientForm';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
+import { format } from 'date-fns';
 
 interface Client {
   id: string;
@@ -132,7 +130,10 @@ export default function QuoteHeader({ onClientChange }: Props) {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className={cn('w-full justify-start text-left font-normal', !date && 'text-muted-foreground')}
+                className={cn(
+                  'w-full justify-start text-left font-normal',
+                  !date && 'text-muted-foreground'
+                )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {date ? format(date, 'PPP') : <span>Pick a date</span>}
@@ -167,7 +168,12 @@ export default function QuoteHeader({ onClientChange }: Props) {
       {/* Total SQM */}
       <div className="max-w-sm">
         <Label className="font-semibold">Total Area (m²)</Label>
-        <Input type="number" value={sqm} onChange={(e) => setSqm(e.target.value)} placeholder="e.g. 320" />
+        <Input
+          type="number"
+          value={sqm}
+          onChange={(e) => setSqm(e.target.value)}
+          placeholder="e.g. 320"
+        />
       </div>
 
       {/* Job Particulars */}
